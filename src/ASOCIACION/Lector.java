@@ -1,75 +1,54 @@
 package ASOCIACION;
 
 public class Lector {
-
-    private String nombre;
     private String cedula;
-    private Libro libroActual;  // referencia a un objeto Libro — puede ser null
+    private String nombre;
+    private Libro libroActual;
 
-
-    // --- CONSTRUCTORES ---
-
-    public Lector() {
-    }
-
-    public Lector(String nombre, String cedula) {
-        this.nombre = nombre;
-        this.cedula = cedula;
-    }
-
-
-    // --- GETTERS ---
-
-    public String getNombre() {
-        return nombre;
+    Lector(String ced, String nom) {
+        this.cedula = ced;
+        this.nombre = nom;
     }
 
     public String getCedula() {
-        return cedula;
+        return this.cedula;
     }
 
-    public Libro getLibroActual() {
-        return libroActual;
+    public String getNombre() {
+        return this.nombre;
     }
 
-
-    // --- SETTERS ---
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCedula(String ced) {
+        this.cedula = ced;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setNombre(String nom) {
+        this.nombre = nom;
     }
 
-
-    // --- MÉTODOS ---
-
-    // Toma un libro prestado — llama al método prestar() del libro
     public void tomarPrestado(Libro libro) {
-        if (libroActual != null) {
-            System.out.println(nombre + " ya tiene el libro \"" + libroActual.getTitulo() + "\". Debe devolverlo primero.");
+        if (this.libroActual != null) {
+            System.out.println(this.nombre + " ya tiene el libro \"" + this.libroActual.getTitulo()
+                    + "\".Debe devolverlo primero.");
         } else {
-            libroActual = libro;
-            libro.prestar();
+            if (libro.prestar()) {
+                this.libroActual = libro;
+            }
         }
     }
 
-    // Devuelve el libro actual — llama al método devolver() del libro
     public void regresarLibro() {
-        if (libroActual == null) {
-            System.out.println(nombre + " no tiene ningún libro.");
+        if (this.libroActual == null) {
+            System.out.println(this.nombre + "no tiene libro sapo despeguela");
+
         } else {
-            libroActual.devolver();
-            libroActual = null;
+            this.libroActual.devolver();
+            this.libroActual = null;
         }
     }
 
-    // Muestra el estado del lector
     public void mostrarEstado() {
-        String estado = (libroActual != null) ? libroActual.getTitulo() : "sin libro";
-        System.out.println("Lector: " + nombre + " | Libro: " + estado);
+        String estado = (this.libroActual == null) ? "no tiene ningun libro" : this.libroActual.getTitulo();
+        System.out.println(" lector " + this.nombre + " | libro: " + estado);
     }
-
 }
